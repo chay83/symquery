@@ -32,6 +32,7 @@
 		* @return	SymQueryResource
 		*/
 		protected static function buildFieldFilter($field, $filter, $mode, SymQueryResource $section) {
+		
 			$section = $section->get('object');
 			$resource = new SymQueryResource();
 			$resource->set('mode', $mode);
@@ -73,7 +74,7 @@
 				$section_id = $section->get('id');
 				$result = self::$fm->fetch($field, $section_id);
 				
-				if ($result === false) {
+				if (empty($result)) {
 					$id = (integer)self::$fm->fetchFieldIDFromElementName($field, $section_id);
 					
 					if ($id > 0) {
@@ -87,7 +88,7 @@
 					}
 				}
 				
-				if ($result === false) {
+				if (empty($result)) {
 					throw new Exception(sprintf(
 						'Unable to find field %s in section %s.',
 						var_export($field, true),
@@ -140,7 +141,7 @@
 				$section_id = $section->get('id');
 				$result = self::$fm->fetch($field, $section_id);
 				
-				if ($result === false) {
+				if (empty($result)) {
 					$parts = preg_split('/:\s*/', $field, 2);
 					$resource->set('mode', @$parts[1]);
 					$name = $parts[0];
@@ -158,7 +159,7 @@
 					}
 				}
 				
-				if ($result === false) {
+				if (empty($result)) {
 					throw new Exception(sprintf(
 						'Unable to find field %s in section %s.',
 						var_export($field, true),
@@ -218,7 +219,7 @@
 				$section_id = $section->get('id');
 				$result = self::$fm->fetch($field, $section_id);
 				
-				if ($result === false) {
+				if (empty($result)) {
 					$id = (integer)self::$fm->fetchFieldIDFromElementName($field, $section_id);
 					
 					if ($id > 0) {
@@ -232,7 +233,7 @@
 					}
 				}
 				
-				if ($result === false) {
+				if (empty($result)) {
 					throw new Exception(sprintf(
 						'Unable to find field %s in section %s.',
 						var_export($field, true),
@@ -291,7 +292,7 @@
 				$section_id = $section->get('id');
 				$result = self::$fm->fetch($field, $section_id);
 				
-				if ($result === false) {
+				if (empty($result)) {
 					$id = (integer)self::$fm->fetchFieldIDFromElementName($field, $section_id);
 					
 					if ($id > 0) {
@@ -305,7 +306,7 @@
 					}
 				}
 				
-				if ($result === false) {
+				if (empty($result)) {
 					throw new Exception(sprintf(
 						'Unable to find field %s in section %s.',
 						var_export($field, true),
@@ -342,8 +343,7 @@
 			
 			else {
 				$result = self::$sm->fetch($section);
-				
-				if ($result === false) {
+				if (empty($result)) {
 					$id = (integer)self::$sm->fetchIDFromHandle($section);
 					
 					if ($id > 0) {
@@ -357,7 +357,7 @@
 					}
 				}
 				
-				if ($result === false) {
+				if (empty($result)) {
 					throw new Exception(sprintf(
 						'Unable to find section %s.', var_export($section, true)
 					));
